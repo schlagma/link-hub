@@ -13,7 +13,6 @@
         "laravel/framework": "^12.0",
         "livewire/flux": "^2.4",
         "livewire/flux-pro": "^2.4",
-        "masmerise/livewire-toaster": "^2.8",
         "postare/blade-mdi": "^1.1",
         "socialiteproviders/keycloak": "^5.3"
     },
