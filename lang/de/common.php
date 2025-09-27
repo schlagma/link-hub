@@ -10,4 +10,5 @@ return [
     'logout' => 'Abmelden',
     'privacyPolicy' => 'Datenschutz',
     'save' => 'Speichern',
+    'sourceCode' => 'Quelltext',
 ];
