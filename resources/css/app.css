@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/masmerise/livewire-toaster/resources/views/*.blade.php';
+
+@theme {
+    --font-sans:
+        Adwaita Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer utilities {
+    :root {
+        --livewire-progress-bar-color: var(--color-accent-content) !important;
+    }
+
+    body {
+        @apply h-full overflow-hidden bg-zinc-50 dark:bg-zinc-900;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    main {
+        @apply h-full overflow-y-auto;
+    }
+    
+    main > div {
+        @apply w-full;
+    }
+
+    .text p {
+        @apply text-base mb-4;
+    }
+
+    .text p a {
+        @apply inline font-medium underline-offset-[6px] hover:decoration-current underline [[data-color]>&]:text-inherit [[data-color]>&]:decoration-current/20 dark:[[data-color]>&]:decoration-current/50 [[data-color]>&]:hover:decoration-current text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)]
+    }
+
+    .text li {
+        @apply ml-8 pl-1 list-disc;
+    }
+
+    .text li p {
+        @apply mb-2;
+    }
+
+    /* Flux */
+
+    table th,
+    table td {
+        @apply text-base! text-zinc-800! dark:text-white!;
+    }
+
+    table th {
+        @apply font-bold!;
+    }
+
+    ui-label {
+        @apply text-base! font-semibold! mb-2! text-zinc-600 dark:text-zinc-300;
+    }
+
+    ui-toast-group {
+        @apply mt-[5.5rem]!;
+    }
+
+    .flux-input-rounded-br-md > button,
+    .flux-input-rounded-br-md > input {
+        @apply rounded-none! rounded-br-md!;
+    }
+
+    .breadcrumbs svg {
+        @apply text-zinc-400 dark:text-zinc-500;
+    }
+
+    ui-sidebar ui-tooltip > a {
+        @apply h-10! -mx-3! w-[calc(100%_+_1.5rem)]!;
+    }
+
+    ui-sidebar ui-tooltip > a > div:last-of-type {
+        @apply text-base! font-medium! text-zinc-800 dark:text-white;
+    }
+
+    ui-sidebar ui-tooltip a svg {
+        @apply size-6!;
+    }
+
+    ui-modal dialog {
+        @apply mx-6 mb-6 sm:m-auto dark:bg-zinc-900!;
+    }
+
+    ui-modal .modal-header {
+        @apply mb-6 -mx-6 -mt-6 px-4 py-3 bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700 font-semibold!;
+    }
+
+    ui-modal button {
+        @apply -mt-2 -mr-2;
+    }
+
+    ui-dropdown nav a {
+        @apply text-base!;
+    }
+
+    ui-dropdown nav a svg {
+        @apply mr-3!;
+    }
+
+    input:disabled {
+        @apply bg-zinc-100 dark:bg-zinc-800 cursor-not-allowed;
+    }
+}
