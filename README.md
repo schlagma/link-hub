@@ -1,5 +1,12 @@
 # Link-Hub
 
+## Requirements
+
+  * PHP 8.2 or higher
+  * NPM
+  * Keycloak (user management)
+  * [Flux](https://fluxui.dev/) Pro License
+
 ## Installation
 
 ```
