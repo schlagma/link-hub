@@ -2,11 +2,9 @@
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/masmerise/livewire-toaster/resources/views/*.blade.php';
 
 @theme {
-    --font-sans:
-        Adwaita Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
