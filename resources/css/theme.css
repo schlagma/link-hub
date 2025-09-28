@@ -17,15 +17,15 @@
 }
 
 @theme {
-    --color-accent: var(--color-yellow-400);
+    --color-accent: #ffdd00;
     --color-accent-content: var(--color-yellow-700);
     --color-accent-foreground: var(--color-yellow-950);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-yellow-400);
-        --color-accent-content: var(--color-yellow-300);
+        --color-accent: #ffdd00;
+        --color-accent-content: #ffdd00;
         --color-accent-foreground: var(--color-yellow-950);
     }
 }
