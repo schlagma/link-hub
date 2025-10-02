@@ -4,12 +4,12 @@ namespace App\Livewire\Admin;
 
 use App\Models\Link;
 use App\Models\Page;
+use Flux\Flux;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 #[Layout('components.layouts.admin')]
 class LinkPageEdit extends Component
@@ -134,7 +134,7 @@ class LinkPageEdit extends Component
             ]
         );
 
-        Toaster::success('admin.itemUpdated');
+        Flux::toast(variant: 'success', text: __('admin.itemUpdated'));
     }
 
     public function updatePage()
@@ -152,14 +152,14 @@ class LinkPageEdit extends Component
             ]
         );
         
-        Toaster::success('admin.pageUpdated');
+        Flux::toast(variant: 'success', text: __('admin.pageUpdated'));
     }
 
     public function deletePage()
     {
         Link::where('page', $this->pageID)->delete();
         Page::destroy($this->pageID);
-        Toaster::success('admin.pageDeleted');
+        Flux::toast(variant: 'success', text: __('admin.pageDeleted'));
         $this->redirect('/admin', navigate: true);
     }
 }

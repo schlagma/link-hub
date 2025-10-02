@@ -3,10 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Group;
+use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 #[Layout('components.layouts.admin')]
 class Groups extends Component
@@ -40,7 +40,7 @@ class Groups extends Component
             ]
         );
 
-        Toaster::success('admin.groupUpdated');
+        Flux::toast(variant: 'success', text: __('admin.groupUpdated'));
     }
 
     public function deleteGroup($key)

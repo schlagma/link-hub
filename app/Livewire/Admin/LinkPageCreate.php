@@ -3,10 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Page;
+use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 #[Layout('components.layouts.admin')]
 class LinkPageCreate extends Component
@@ -33,7 +33,7 @@ class LinkPageCreate extends Component
             'public' => $this->isPublic,
         ]);
 
-        Toaster::success('admin.pageAdded');
+        Flux::toast(variant: 'success', text: __('admin.pageAdded'));
         $this->redirect('/admin', navigate: true);
     }
 }
