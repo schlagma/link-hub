@@ -11,7 +11,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
-#[Layout('components.layouts.admin')]
+#[Layout('layouts.admin')]
 class LinkPageEdit extends Component
 {
     #[Locked]

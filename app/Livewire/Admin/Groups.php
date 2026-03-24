@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.admin')]
+#[Layout('layouts.admin')]
 class Groups extends Component
 {
     public $groups;
