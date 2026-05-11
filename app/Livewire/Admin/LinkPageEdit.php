@@ -92,31 +92,58 @@ class LinkPageEdit extends Component
 
     public function removeItem($id)
     {
-        $link = Link::find($id);
-        $position = $link->order;
+        // Get the item
+        $item = Link::where('id', $id)->first();
 
-        DB::transaction(function () use ($link, $position) {
-            Link::where('order', '>', $position)->decrement('order');
-            $link->delete();
-        });
+        // Delete the item
+        $item->delete();
+
+        // Get all siblings of this item
+        $siblings = Link::where('page', $this->pageID)
+            ->orderBy('order')
+            ->get();
+
+        // Update the order
+        foreach ($siblings as $index => $s) {
+            $s->update([
+                'order' => $index,
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     public function sortItems($id, $newPosition)
     {
-        $item = Link::find($id);
-        $currentPosition = $item->order;
+        $movedItem = Link::where('id', $id)->first();
+        if (!$movedItem) return;
 
-        if ($newPosition < $currentPosition) {
-            $linksToReorder = Link::whereBetween('order', [$newPosition, $currentPosition - 1]);
-            $linksToReorder->increment('order');
-        } else {
-            $linksToReorder = Link::whereBetween('order', [$currentPosition + 1, $newPosition]);
-            $linksToReorder->decrement('order');
+        $oldPosition = $movedItem->order;
+        $newPosition = $position;
+
+        // Get all items
+        $allItems = Link::where('page', $this->pageID)
+            ->orderBy('order')
+            ->get();
+
+        if ($oldPosition < $newPosition) {
+            // Moving down - shift items between oldPosition+1 and newPosition down by 1
+            foreach ($allItems as $item) {
+                if ($item->id !== $id && $item->order > $oldPosition && $item->order <= $newPosition) {
+                    $item->update(['order' => $item->order - 1]);
+                }
+            }
+        } elseif ($oldPosition > $newPosition) {
+            // Moving up - shift items between newPosition and oldPosition-1 up by 1
+            foreach ($allItems as $item) {
+                if ($item->id !== $id && $item->order >= $newPosition && $item->order < $oldPosition) {
+                    $item->update(['order' => $item->order + 1]);
+                }
+            }
         }
 
-        $item->update([
-            'order' => $newPosition,
-        ]);
+        // Set moved item to new position
+        $movedItem->update(['order' => $newPosition]);
     }
 
     public function updateItem($key)
