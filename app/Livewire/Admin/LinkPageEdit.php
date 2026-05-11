@@ -88,6 +88,8 @@ class LinkPageEdit extends Component
             'group' => false,
             'order' => $position,
         ]);
+
+        return redirect()->back();
     }
 
     public function removeItem($id)
