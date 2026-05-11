@@ -115,7 +115,7 @@ class LinkPageEdit extends Component
         return redirect()->back();
     }
 
-    public function sortItems($id, $newPosition)
+    public function sortItems($id, $position)
     {
         $movedItem = Link::where('id', $id)->first();
         if (!$movedItem) return;
