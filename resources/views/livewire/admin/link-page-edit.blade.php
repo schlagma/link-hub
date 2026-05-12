@@ -56,7 +56,7 @@
                 <flux:table.column></flux:table.column>
             @endif
         </flux:table.columns>
-        <flux:table.rows x-sort="$wire.sortItems($item, $position + 1)">
+        <flux:table.rows x-sort="$wire.sortItems($item, $position)">
             @foreach($links as $key => $link)
                 <flux:table.row x-sort:item="{{ $link->id }}" wire:key="{{ $key }}">
                     <flux:table.cell>
