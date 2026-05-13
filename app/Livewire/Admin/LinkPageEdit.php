@@ -78,7 +78,13 @@ class LinkPageEdit extends Component
 
     public function addItem()
     {
-        $position = Link::where('page', $this->pageID)->max('order') + 1;
+        $itemsCount = Link::where('page', $this->pageID)->count();
+        if ($itemsCount === 0) {
+            $position = 0;
+        } else {
+            $position = Link::where('page', $this->pageID)->max('order') + 1;
+        }
+        
         Link::create([
             'page' => $this->pageID,
             'title' => '',
