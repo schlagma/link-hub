@@ -49,10 +49,10 @@
             @if(count($links) > 0)
                 <flux:table.column></flux:table.column>
                 <flux:table.column>{{ __('admin.groupTitle') }}</flux:table.column>
-                <flux:table.column>{{ __('admin.title') }}</flux:table.column>
-                <flux:table.column>{{ __('admin.description') }}</flux:table.column>
-                <flux:table.column>{{ __('admin.link') }}</flux:table.column>
-                <flux:table.column>{{ __('admin.symbol') }}</flux:table.column>
+                <flux:table.column class="min-w-[10rem]">{{ __('admin.title') }}</flux:table.column>
+                <flux:table.column class="min-w-[10rem]">{{ __('admin.description') }}</flux:table.column>
+                <flux:table.column class="min-w-[10rem]">{{ __('admin.link') }}</flux:table.column>
+                <flux:table.column class="min-w-[10rem]">{{ __('admin.symbol') }}</flux:table.column>
                 <flux:table.column></flux:table.column>
             @endif
         </flux:table.columns>
