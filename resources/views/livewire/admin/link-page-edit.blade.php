@@ -63,7 +63,7 @@
                         <flux:button icon="grip" x-sort:handle class="cursor-grab active:cursor-grabbing" title="{{ __('admin.moveItem') }}" />
                     </flux:table.cell>
                     <flux:table.cell class="h-[3.75rem] flex justify-center items-center">
-                        <flux:switch wire:model="links.{{ $key }}.group" wire:change="updateItem({{ $key }})" />
+                        <flux:checkbox wire:model="links.{{ $key }}.group" wire:change="updateItem({{ $key }})" />
                     </flux:table.cell>
                     <flux:table.cell>
                         <flux:input type="text" wire:model="links.{{ $key }}.title" wire:change="updateItem({{ $key }})" />
