@@ -4,7 +4,7 @@
 
   * PHP 8.2 or higher
   * NPM
-  * Keycloak (user management)
+  * An OpenID Connect provider (user management)
   * [Flux](https://fluxui.dev/) Pro License
 
 ## Installation

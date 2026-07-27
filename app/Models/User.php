@@ -24,9 +24,8 @@ class User extends Authenticatable
         'lastname',
         'email',
         'groups',
-        'keycloak_id',
-        'keycloak_token',
-        'keycloak_refresh_token',
+        'oidc_token',
+        'oidc_refresh_token',
         'id_token',
     ];
 

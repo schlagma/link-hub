@@ -35,12 +35,12 @@ return [
         ],
     ],
 
-    'keycloak' => [
-        'client_id' => env('KEYCLOAK_CLIENT_ID'),
-        'client_secret' => env('KEYCLOAK_CLIENT_SECRET'),
-        'redirect' => env('KEYCLOAK_REDIRECT_URI'),
-        'base_url' => env('KEYCLOAK_BASE_URL'),
-        'realms' => env('KEYCLOAK_REALM')
+    'oidc' => [
+        'client_id' => env('OIDC_CLIENT_ID'),
+        'client_secret' => env('OIDC_CLIENT_SECRET'),
+        'redirect' => env('OIDC_REDIRECT_URI'),
+        'base_url' => env('OIDC_BASE_URL'),
+        'verify_jwt' => env('OIDC_VERIFY_JWT', false),
     ],
 
 ];
