@@ -34,7 +34,7 @@ Route::get('/auth/callback', function () {
     $oidcUser = Socialite::driver('oidc')->stateless()->user();
 
     $attributes = [
-        'oidc_sub' => $oidcUser->id,
+        'oidc_sub' => $oidcUser->sub,
         'username' => $oidcUser->preferred_username,
         'name' => $oidcUser->name,
         'firstname' => $oidcUser->user['given_name'],
