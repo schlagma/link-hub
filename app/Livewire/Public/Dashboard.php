@@ -16,11 +16,11 @@ class Dashboard extends Component
         $query = Page::orderBy('title');
 
         // Check if user is authenticated
-        if (!auth()->guest()) {
+        if (! auth()->guest()) {
             $allPages = Page::select('id', 'groups')->get();
             $userGroups = json_decode(auth()->user()->groups);
             // Check if user is admin
-            if (!in_array(config('app.group_admin'), $userGroups)) {
+            if (! in_array(config('app.group_admin'), $userGroups)) {
                 // Add all public pages to the database query
                 $query->where('public', true);
                 // Check if one of the groups the user belongs to is allowed to view the pages
@@ -41,7 +41,7 @@ class Dashboard extends Component
         // Retrieve all pages that the user is allowed to view from the database ordered by title
         $pages = $query->paginate(12);
 
-        return view('livewire.public.dashboard',[
+        return view('livewire.public.dashboard', [
             'pages' => $pages,
         ]);
     }

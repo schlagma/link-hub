@@ -5,7 +5,6 @@ namespace App\Livewire\Public;
 use App\Models\Link;
 use App\Models\Page;
 use Illuminate\Http\Request;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class LinkPage extends Component
@@ -16,12 +15,12 @@ class LinkPage extends Component
         $page = Page::where('id', $request->id)->first();
 
         // Check if page is public
-        if (!$page->public) {
+        if (! $page->public) {
             // Check if user is authenticated
-            if (!auth()->guest()) {
+            if (! auth()->guest()) {
                 $userGroups = json_decode(auth()->user()->groups);
                 // Check if user is admin
-                if (!in_array(config('app.group_admin'), $userGroups)) {
+                if (! in_array(config('app.group_admin'), $userGroups)) {
                     // Check if one of the groups the user belongs to is allowed to view the page
                     $matchingGroupExists = false;
                     foreach ($userGroups as $group) {
@@ -30,7 +29,7 @@ class LinkPage extends Component
                         }
                     }
                     // If no matching group exist throw a 403 Forbidden error
-                    if (!$matchingGroupExists) {
+                    if (! $matchingGroupExists) {
                         abort('403');
                     }
                 }

@@ -17,7 +17,7 @@ class Dashboard extends Component
         $userGroups = json_decode(auth()->user()->groups);
         $query = Page::orderBy('title');
 
-        if (!in_array(config('app.group_admin'), $userGroups)) {
+        if (! in_array(config('app.group_admin'), $userGroups)) {
             $allPages = Page::select('id', 'groups')->get();
             $allowedPages = [];
             foreach ($userGroups as $group) {
@@ -30,10 +30,10 @@ class Dashboard extends Component
             }
             $query->whereIn('id', $allowedPages);
         }
-        
+
         $pages = $query->paginate(12);
 
-        return view('livewire.admin.dashboard',[
+        return view('livewire.admin.dashboard', [
             'pages' => $pages,
         ]);
     }

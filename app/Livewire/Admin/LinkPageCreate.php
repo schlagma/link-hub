@@ -11,14 +11,18 @@ use Livewire\Component;
 #[Layout('layouts.admin')]
 class LinkPageCreate extends Component
 {
-    public string $title = "";
-    public string $description = "";
+    public string $title = '';
+
+    public string $description = '';
+
     public array $groups = [];
+
     public bool $isPublic = false;
 
     public function render()
     {
         $allGroups = DB::table('groups')->orderBy('name')->get();
+
         return view('livewire.admin.link-page-create', [
             'allGroups' => $allGroups,
         ]);

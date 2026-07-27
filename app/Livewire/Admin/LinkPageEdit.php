@@ -18,8 +18,11 @@ class LinkPageEdit extends Component
     public $pageID;
 
     public string $title;
+
     public string $description;
+
     public $groups;
+
     public bool $isPublic;
 
     public $links;
@@ -34,7 +37,7 @@ class LinkPageEdit extends Component
         $page = DB::table('pages')->where('id', $this->pageID)->first();
 
         $userGroups = json_decode(auth()->user()->groups);
-        if (!in_array(config('app.group_admin'), $userGroups)) {
+        if (! in_array(config('app.group_admin'), $userGroups)) {
             // Check if one of the groups the user belongs to is allowed to edit the page
             $matchingGroupExists = false;
             foreach ($userGroups as $group) {
@@ -43,7 +46,7 @@ class LinkPageEdit extends Component
                 }
             }
             // If no matching group exist throw a 403 Forbidden error
-            if (!$matchingGroupExists) {
+            if (! $matchingGroupExists) {
                 abort('403');
             }
         }
@@ -84,7 +87,7 @@ class LinkPageEdit extends Component
         } else {
             $position = Link::where('page', $this->pageID)->max('order') + 1;
         }
-        
+
         Link::create([
             'page' => $this->pageID,
             'title' => '',
@@ -124,7 +127,9 @@ class LinkPageEdit extends Component
     public function sortItems($id, $position)
     {
         $movedItem = Link::where('id', $id)->first();
-        if (!$movedItem) return;
+        if (! $movedItem) {
+            return;
+        }
 
         $oldPosition = $movedItem->order;
         $newPosition = $position;
@@ -158,7 +163,7 @@ class LinkPageEdit extends Component
     {
         Link::updateOrCreate(
             [
-                'id' => $this->links[$key]->id
+                'id' => $this->links[$key]->id,
             ],
             [
                 'title' => $this->links[$key]->title,
@@ -174,7 +179,7 @@ class LinkPageEdit extends Component
 
     public function updatePage()
     {
-        //dd(json_encode($this->groups));
+        // dd(json_encode($this->groups));
         Page::updateOrCreate(
             [
                 'id' => $this->pageID,
@@ -186,7 +191,7 @@ class LinkPageEdit extends Component
                 'public' => $this->isPublic,
             ]
         );
-        
+
         Flux::toast(variant: 'success', text: __('admin.pageUpdated'));
     }
 

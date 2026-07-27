@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Socialite\OidcProvider;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,14 +24,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
-            $event->extendSocialite('oidc', \App\Socialite\OidcProvider::class);
+        Event::listen(function (SocialiteWasCalled $event) {
+            $event->extendSocialite('oidc', OidcProvider::class);
         });
 
-        Gate::define('admin', function(User $user) {
+        Gate::define('admin', function (User $user) {
             if (in_array(config('app.group_admin'), json_decode($user->groups))) {
                 return true;
             }
+
             return false;
         });
     }

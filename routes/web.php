@@ -1,29 +1,31 @@
 <?php
 
-use App\Livewire\Settings\Appearance;
-use App\Livewire\Settings\Password;
-use App\Livewire\Settings\Profile;
+use App\Livewire\Admin\Groups;
+use App\Livewire\Admin\LinkPageCreate;
+use App\Livewire\Admin\LinkPageEdit;
+use App\Livewire\Public\Dashboard;
+use App\Livewire\Public\LinkPage;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', \App\Livewire\Public\Dashboard::class)->name('public.dashboard');
-Route::get('/p/{id}', \App\Livewire\Public\LinkPage::class)->name('public.link-page');
+Route::get('/', Dashboard::class)->name('public.dashboard');
+Route::get('/p/{id}', LinkPage::class)->name('public.link-page');
 
-Route::group(['middleware'=>['auth']], function() {
-    Route::get('/admin', \App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
-    Route::get('/admin/page/new', \App\Livewire\Admin\LinkPageCreate::class)->name('admin.link-page-create')->can('admin');
-    Route::get('/admin/page/{id}/edit', \App\Livewire\Admin\LinkPageEdit::class)->name('admin.link-page-edit');
-    Route::get('/admin/groups', \App\Livewire\Admin\Groups::class)->name('admin.groups')->can('admin');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/admin', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+    Route::get('/admin/page/new', LinkPageCreate::class)->name('admin.link-page-create')->can('admin');
+    Route::get('/admin/page/{id}/edit', LinkPageEdit::class)->name('admin.link-page-edit');
+    Route::get('/admin/groups', Groups::class)->name('admin.groups')->can('admin');
 });
 
-Route::get('/imprint', function() {
+Route::get('/imprint', function () {
     return redirect(config('app.imprint_url'));
 })->name('imprint');
 
-Route::get('/privacy', function() {
+Route::get('/privacy', function () {
     return redirect(config('app.privacy_url'));
 })->name('privacy');
 
-Route::get('/source-code', function() {
+Route::get('/source-code', function () {
     return redirect(config('app.source_code_url'));
 })->name('source-code');
 

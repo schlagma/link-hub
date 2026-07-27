@@ -17,6 +17,7 @@ class Groups extends Component
     {
         $groups = DB::table('groups')->get();
         $this->groups = $groups;
+
         return view('livewire.admin.groups');
     }
 
