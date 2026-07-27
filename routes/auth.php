@@ -35,7 +35,7 @@ Route::get('/auth/callback', function () {
 
     $attributes = [
         'oidc_sub' => $oidcUser->id,
-        'username' => $oidcUser->nickname,
+        'username' => $oidcUser->preferred_username,
         'name' => $oidcUser->name,
         'firstname' => $oidcUser->user['given_name'],
         'lastname' => $oidcUser->user['family_name'],
