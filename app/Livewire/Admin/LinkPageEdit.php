@@ -104,7 +104,11 @@ class LinkPageEdit extends Component
     public function removeItem($id)
     {
         // Get the item
-        $item = Link::where('id', $id)->first();
+        $item = Link::where('id', $id)->where('page', $this->pageID)->first();
+
+        if (! $item) {
+            return;
+        }
 
         // Delete the item
         $item->delete();
@@ -126,7 +130,7 @@ class LinkPageEdit extends Component
 
     public function sortItems($id, $position)
     {
-        $movedItem = Link::where('id', $id)->first();
+        $movedItem = Link::where('id', $id)->where('page', $this->pageID)->first();
         if (! $movedItem) {
             return;
         }

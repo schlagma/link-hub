@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mews\Purifier\Facades\Purifier;
 
 class Page extends Model
 {
@@ -24,4 +25,11 @@ class Page extends Model
         'groups',
         'public',
     ];
+
+    protected function setDescriptionAttribute(?string $value): void
+    {
+        $this->attributes['description'] = $value === null || $value === ''
+            ? $value
+            : Purifier::clean($value);
+    }
 }

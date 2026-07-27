@@ -10,10 +10,20 @@ Route::get('/auth/login', function () {
     // Store the requested URL in the session
     session()->put('intended_url', url()->previous());
 
-    // Redirect to the OIDC provider for authentication
-    return Socialite::driver('oidc')
+    $redirect = Socialite::driver('oidc')
         ->scopes(['profile', 'email', 'groups'])
         ->redirect();
+
+    // wire:navigate link clicks and Livewire component actions run through fetch(),
+    // which can't follow this redirect onto the OIDC provider's origin (blocked by
+    // CORS since the provider won't send an Access-Control-Allow-Origin header for
+    // us). When the request is one of those, hop off-site via a same-origin page
+    // that performs a real top-level navigation instead, which isn't subject to CORS.
+    if (request()->hasHeader('X-Livewire') || request()->hasHeader('X-Livewire-Navigate')) {
+        return view('auth.redirecting', ['url' => $redirect->getTargetUrl()]);
+    }
+
+    return $redirect;
 })->name('login');
 
 Route::get('/auth/callback', function () {
@@ -22,9 +32,9 @@ Route::get('/auth/callback', function () {
 
     // Get user information from the OIDC provider and update or create the user in the database
     $oidcUser = Socialite::driver('oidc')->stateless()->user();
-    $user = User::updateOrCreate([
-        'username' => $oidcUser->nickname,
-    ], [
+
+    $attributes = [
+        'oidc_sub' => $oidcUser->id,
         'username' => $oidcUser->nickname,
         'name' => $oidcUser->name,
         'firstname' => $oidcUser->user['given_name'],
@@ -34,7 +44,20 @@ Route::get('/auth/callback', function () {
         'oidc_token' => $oidcUser->token,
         'oidc_refresh_token' => $oidcUser->refreshToken,
         'id_token' => $oidcUser->accessTokenResponseBody['id_token'],
-    ]);
+    ];
+
+    $user = User::where('oidc_sub', $oidcUser->id)->first();
+
+    // One-time migration path for accounts created before "oidc_sub" existed
+    if (! $user) {
+        $user = User::whereNull('oidc_sub')->where('username', $oidcUser->nickname)->first();
+    }
+
+    if ($user) {
+        $user->update($attributes);
+    } else {
+        $user = User::create($attributes);
+    }
 
     // Log the user in
     Auth::login($user);

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Dashboard::class)->name('public.dashboard');
 Route::get('/p/{id}', LinkPage::class)->name('public.link-page');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function (): void {
     Route::get('/admin', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
     Route::get('/admin/page/new', LinkPageCreate::class)->name('admin.link-page-create')->can('admin');
     Route::get('/admin/page/{id}/edit', LinkPageEdit::class)->name('admin.link-page-edit');
