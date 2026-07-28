@@ -25,6 +25,7 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'email',
+        'avatar',
         'groups',
         'oidc_token',
         'oidc_refresh_token',
