@@ -50,7 +50,7 @@ Route::get('/auth/callback', function () {
 
     // One-time migration path for accounts created before "oidc_sub" existed
     if (! $user) {
-        $user = User::whereNull('oidc_sub')->where('username', $oidcUser->nickname)->first();
+        $user = User::whereNull('oidc_sub')->where('username', $oidcUser->user['preferred_username'])->first();
     }
 
     if ($user) {
