@@ -10,7 +10,7 @@
             </flux:button>
         @endforeach
     </div>
-    <div class="mt-6">
-        {{ $pages->links() }}
+    <div class="pagination mt-6">
+        <flux:pagination :paginator="$pages" />
     </div>
 </div>
