@@ -44,7 +44,7 @@
             </flux:toast.group>
         @endpersist
 
-        @livewireScripts
+        @livewireScriptConfig
         @fluxScripts(['nonce' => Vite::cspNonce()])
     </body>
 </html>
