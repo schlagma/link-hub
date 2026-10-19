@@ -1,0 +1,82 @@
+version: 2
+
+registries:
+  # livewire/flux-pro is a paid package served from Flux's own Composer
+  # repository. Without these credentials Dependabot cannot resolve the
+  # dependency tree and every Composer run fails. Store them as Dependabot
+  # secrets under Settings > Secrets and variables > Dependabot.
+  flux-pro:
+    type: composer-repository
+    url: https://composer.fluxui.dev
+    username: ${{secrets.FLUX_PRO_USERNAME}}
+    password: ${{secrets.FLUX_PRO_PASSWORD}}
+
+updates:
+  - package-ecosystem: composer
+    directory: "/"
+    registries:
+      - flux-pro
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - php
+    groups:
+      # Minor and patch bumps are batched into one pull request each, so the
+      # weekly noise stays low. Major bumps still arrive on their own, because
+      # those are the ones that need a look at the upgrade guide.
+      php-production:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      php-development:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - javascript
+    groups:
+      js-production:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      js-development:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+  # Keeps the action versions in .github/workflows from going stale.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+    groups:
+      actions:
+        update-types:
+          - minor
+          - patch
