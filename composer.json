@@ -9,9 +9,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "kovah/laravel-socialite-oidc": "^0.8.0",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "livewire/flux": "^2.4",
         "livewire/flux-pro": "^2.4",
         "mews/purifier": "^3.4",
@@ -23,8 +23,9 @@
         "laravel/pint": "^1.18",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.3",
+        "nunomaduro/collision": "^8.9.5",
+        "pestphp/pest": "^5.3",
+        "pestphp/pest-plugin-laravel": "^5.0",
         "driftingly/rector-laravel": "^2.5",
         "rector/rector": "^2.5"
     },
