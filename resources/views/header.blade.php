@@ -3,12 +3,7 @@
         <flux:sidebar.toggle class="lg:hidden" icon="menu" />
     @else
         <a wire:navigate href="/" class="flex h-full items-center border-b-0 sm:w-[18rem] px-6 -ml-6">
-            @if(file_exists(public_path('logo.svg')) && file_exists(public_path('logo-small.svg')))
-                <img class="h-8 w-auto hidden sm:inline" src="{{ asset('logo.svg') }}" alt="{{ config('app.name') }}">
-                <img class="h-8 w-auto sm:hidden" src="{{ asset('logo-small.svg') }}" alt="{{ config('app.name') }}">
-            @else
-                <span class="text-zinc-800 dark:text-white text-xl font-semibold">{{ config('app.name') }}</span>
-            @endif
+            @include('partials.brand')
         </a>
     @endif
     <div class="flex items-center gap-x-4 ml-auto">
